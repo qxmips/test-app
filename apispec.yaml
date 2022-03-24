@@ -1,0 +1,72 @@
+---
+swagger: '2.0'
+
+info:
+  title:  test app
+  version: '0.0.1'
+  description: |
+    This service is example of application.
+
+    For get more information look API.
+
+  contact:
+    name: Github Repository
+    url: https://github.com/qxmips/test-app
+
+schemes:
+- http
+- https
+
+consumes:
+- application/json
+produces:
+- application/json
+
+paths:
+
+  /:
+    get:
+      summary: Main endpoint
+      description: Main endpoint for test application
+      operationId: controllers.main
+      responses:
+        200:
+          description: Main endpoint response HelloWorld object
+          schema:
+            $ref: '#/definitions/HelloWorld'
+
+  /ping:
+    get:
+      summary: Ping application
+      description: Check available this service
+      operationId: controllers.ping
+      parameters:
+      - in: query
+        name: value
+        type: string
+        default: pong
+      responses:
+        200:
+          description: Service is working, all good
+          schema:
+            type: object
+            required: [ping, values]
+            properties:
+              ping:
+                type: string
+                default: pong
+              values:
+                type: object
+                description: History of values
+        400:
+          description: Invalid value parameter
+
+definitions:
+  HelloWorld:
+    type: object
+    additionalProperties: false
+    required: [hello]
+    properties:
+      hello:
+        type: string
+        description: Name for hello
